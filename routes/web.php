@@ -18,7 +18,14 @@ use App\Http\Controllers\UserController;
 
 //anonymous functions
 Route::get('/', function () {
-    $posts = Post::all();
+    $posts = [];
+    //only if you are logged in
+    if (auth()->check()) {
+        //begins from a perspective of a user
+        $posts = auth()->user()->usersCoolPosts()->latest()->get();
+    }
+    //begins from a perspective of a blog post 
+    // $posts = Post::where('user_id', auth()->id())->get();
     return view('home', ['posts' => $posts]);
 });
 
@@ -31,3 +38,5 @@ Route::post('/login', [UserController::class, 'login'])->name('login');
 
 //blog post related routes
 Route::post('/create-post', [PostController::class, 'createPost']);
+Route::get('/edit-post/{post}', [PostController::class, 'showEditScreen'])->name('edit-post');
+Route::put('/edit-post/{post}', [PostController::class, 'updatePost']);

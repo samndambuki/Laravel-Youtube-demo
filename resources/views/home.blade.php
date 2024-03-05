@@ -30,11 +30,23 @@
             <div style="background-color:gray;padding:10px;margin:10px">
                 <h3>{{$post['title']}}</h3>
                 {{$post['body']}}
+
+                {{-- edit  --}}
+                <p><a href="/edit-post/{{$post->id}}">Edit</a></p>
+
+                {{-- delete --}}
+                <form action="/delete-post/{{$post->id}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button>Delete</button>
+                </form>
+
             </div>
             @endforeach()
     </div>
 
     @else 
+    
     <div style="border:3px solid black;">
         <h2>Register</h2>
         <form action="{{route('register')}}" method="POST">
@@ -44,9 +56,9 @@
             <input name="password" type="password" placeholder="password" > 
             <button>Register</button>
         </form>
-        </div>
+    </div>
 
-        <div style="border:3px solid black;">
+    <div style="border:3px solid black;">
             <h2>Login</h2>
             <form action="{{route('login')}}" method="POST">
                 @csrf
@@ -54,7 +66,8 @@
                 <input name="loginpassword" type="password" placeholder="password" > 
                 <button>Log in</button>
             </form>
-            </div>
+    </div>
+
     @endauth 
 
 </body>
