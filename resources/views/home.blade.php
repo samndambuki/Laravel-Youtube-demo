@@ -12,6 +12,28 @@
         @csrf
         <button>Logout</button>
     </form>
+
+
+    <div style="border:3px solid black;">
+        <h2>Create a new Post</h2>
+        <form action="/create-post" method="POST">
+            @csrf
+            <input type="text" name="title" placeholder="post title">
+            <textarea name="body" placeholder="body-content"></textarea>
+            <button>Create Post</button>
+        </form>
+    </div>
+
+    <div style="border:3px solid black;">
+        <h2>All posts<h2>
+            @foreach($posts as $post)
+            <div style="background-color:gray;padding:10px;margin:10px">
+                <h3>{{$post['title']}}</h3>
+                {{$post['body']}}
+            </div>
+            @endforeach()
+    </div>
+
     @else 
     <div style="border:3px solid black;">
         <h2>Register</h2>
@@ -23,6 +45,7 @@
             <button>Register</button>
         </form>
         </div>
+
         <div style="border:3px solid black;">
             <h2>Login</h2>
             <form action="{{route('login')}}" method="POST">

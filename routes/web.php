@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -14,10 +16,18 @@ use App\Http\Controllers\UserController;
 |
 */
 
+//anonymous functions
 Route::get('/', function () {
-    return view('home');
+    $posts = Post::all();
+    return view('home', ['posts' => $posts]);
 });
 
+
+//functions on the user controller
 Route::post('/register', [UserController::class, 'register'])->name('register');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 Route::post('/login', [UserController::class, 'login'])->name('login');
+
+
+//blog post related routes
+Route::post('/create-post', [PostController::class, 'createPost']);
