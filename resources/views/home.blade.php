@@ -28,7 +28,7 @@
         <h2>All posts<h2>
             @foreach($posts as $post)
             <div style="background-color:gray;padding:10px;margin:10px">
-                <h3>{{$post['title']}}</h3>
+                <h3>{{$post['title']}} by {{$post->user->name}}</h3>
                 {{$post['body']}}
 
                 {{-- edit  --}}
